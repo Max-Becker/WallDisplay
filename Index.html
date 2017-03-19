@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>WallRevived</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+
+    <link href="stlye.css" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Lora" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="js/weather.js"></script>
+    <script src="js/maps.js"></script>
+    <script src="js/menu.js"></script>
+    <script src="js/background.js"></script>
+
+</head>
+
+<body onload="startTime();" onload="doSlideshow();" class="bgimg">
+
+    <header>
+        <div id="sideNav" class="navigation"> <!--Side Menu Navigation bar-->
+            <a href="javascript:void(0)" class="close" onclick="closeSideBar()">&times;</a>
+            <a href="#">KODI</a>
+            <img id=navBar src="imgs/bar.png" width: 100px>
+            <a href="#">Maps</a>
+            <img id=navBar src="imgs/bar.png" width: 100px>
+            <a href="#">Settings</a>
+        </div>
+        <img id=burger src="imgs/hamburger.png" onclick="openSideBar()">
+
+
+    </header>
+
+
+    <main onclick="closeSideBar()">
+        <div id="toprow">           <!--HTML organized into rows, first row-->
+            <div id="clock">        <!--First item in first row-->
+                <p id="time"></p>
+                <p id="cal"></p>
+            </div>
+
+            <div id="calendar">
+                <p id="header">Calendar</p>
+            </div>
+            <div id="user">
+                <img class=usr src="imgs/61205.png">
+                <p id="name">Max</p>
+            </div>
+        </div>
+
+        <div id="2ndrow">
+            <div id="weather">
+
+                <div class=right>
+                    <div class="temp"><span id="temp">0</span>&deg;</div>
+                    <div class="mmTemp"><span id="mmTemp">0&deg; - 0&deg;</span></div>
+                    <div>
+                    </div> <img id=loc src="imgs/loc.png">
+                    <div class="location"><span id="location">Unknown</span>
+                        <p id=state>, Arizona</p>
+                    </div>
+                </div>
+                <div class=left>
+                    <div class="icon"><span id="icon">Unknown</span></div>
+                    <div class="info"><span id="info">Unknown</span></div>
+                </div>
+            </div>
+            <div id="notes">
+                <p id="header">notes</p>
+            </div>
+        </div>
+        <div id="3rdrow">
+            <div id="destination">
+                <h1 class="desthead"><span id="desthead"></span>Time to <span style="color:#964047">ASU Tempe</span></h1>
+                <img id=car src="imgs/car.png">
+                <img id=bar src="imgs/bar.png">
+                <b><div class = "duration"><span id ="duration">Unknkown</span></div></b>
+
+            </div>
+            <div id="uber">
+                <h1 class="uberhead"><span id="uberhead">Uber</span></h1>
+                <img id=bar src="imgs/bar.png">
+               <b> <div class = "uberdescription"><span id = "uberdescription">Tap to call a ride</span></div></b>
+            </div>
+        </div>
+
+
+    </main>
+
+
+    <script>        //Clock
+        function startTime() {      
+            var d = new Date();
+            var h = d.getHours();
+            var m = d.getMinutes();
+            m = Ticking(m);
+            var mon = d.getMonth();
+            var da = d.getDay();
+            var num = d.getDate();
+            var day, month, number;
+            if (h > 12) {
+                h = h - 12;
+            }
+            switch (mon) {         //Matching month number with name
+                case 0:
+                    month = "Jan";
+                    break;
+                case 1:
+                    month = "Feb";
+                    break;
+                case 2:
+                    month = "Mar";
+                    break;
+                case 3:
+                    month = "Apr";
+                    break;
+                case 4:
+                    month = "May";
+                    break;
+                case 5:
+                    month = "Jun";
+                    break;
+                case 6:
+                    month = "Jul";
+                    break;
+                case 7:
+                    month = "Aug";
+                    break;
+                case 8:
+                    month = "Sep";
+                    break;
+                case 9:
+                    month = "Oct";
+                    break;
+                case 10:
+                    month = "Nov";
+                    break;
+                case 11:
+                    month = "Dec";
+                    break;
+            }
+            switch (da) {
+                case 0:
+                    day = "Sunday";
+                    break;
+                case 1:
+                    day = "Monday";
+                    break;
+                case 2:
+                    day = "Tuesday";
+                    break;
+                case 3:
+                    day = "Wednesday";
+                    break;
+                case 4:
+                    day = "Thursday";
+                    break;
+                case 5:
+                    day = "Friday";
+                    break;
+                case 6:
+                    day = "Saturday";
+                    break;
+
+
+
+            }
+
+
+            document.getElementById("time").innerHTML = h + ":" + m;
+
+            document.getElementById("cal").innerHTML = day + " " + month + " " + num;
+
+            var t = setTimeout('startTime()', 500);
+        }
+
+        function Ticking(ticVal) {      //Adds a zero infront of time
+            if (ticVal < 10) {
+                ticVal = "0" + ticVal;
+            }
+            return ticVal;
+        }
+
+    </script>
+    <script>    //Wallpapers stored in an Array and displayed according to wallpaper.js timer with a fade animation
+        var images = new Array('imgs/Wallpapers/Google-Pixel-XL-Wallpapers-3.jpg', 'imgs/Wallpapers/Google-Pixel-XL-Wallpapers-4.jpg', 'imgs/Wallpapers/Google-Pixel-XL-Wallpapers-7.png', 'imgs/Wallpapers/Google-Pixel-XL-Wallpapers-8.jpg', 'imgs/Wallpapers/wall20160920094502.png', 'imgs/Wallpapers/wall20160920094613.png');
+        var nextimage = 0;
+        doSlideshow();
+
+        function doSlideshow() {
+            if (nextimage >= images.length) {
+                nextimage = 0;
+            }
+            $('.bgimg')
+                .css('background-image', 'url("' + images[nextimage++] + '")')
+                .fadeIn(50000, function() {
+                    setTimeout(doSlideshow, 100000);
+                });
+        }
+
+    </script>
+
+</body>
+
+</html>
